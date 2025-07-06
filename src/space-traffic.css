@@ -1,0 +1,62 @@
+/* SpaceTraffic dynamic ships & UFOs */
+.space-traffic {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* Behind UI, above starfield if starfield z-index <0; adjust if needed */
+}
+
+/* Base shapes */
+.ship {
+  position: absolute;
+  width: 12px;
+  height: 4px;
+  background: #d1d5db; /* light grey */
+  border-radius: 2px;
+  opacity: 0;
+  box-shadow: 1px 1px 10px rgb(213, 213, 219);
+}
+
+.ufo {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 14px solid #8132e3; /* violet */
+  opacity: 0;
+}
+
+/* Direction variants */
+.ship.dir-right { animation: ship-right 29s linear infinite; }
+.ship.dir-left  { animation: ship-left 24s linear infinite; }
+
+.ufo.dir-right  { animation: ufo-right 22s linear infinite; transform: rotate(90deg); }
+.ufo.dir-left   { animation: ufo-left  25s linear infinite; transform: rotate(180deg); }
+
+/* Keyframes */
+@keyframes ship-right {
+  0%   { transform: translateX(-10vw); opacity: 0; }
+  50%  { opacity: 1; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateX(110vw); opacity: 0; }
+}
+@keyframes ship-left {
+  0%   { transform: translateX(110vw); opacity: 0; }
+  50%  { opacity: 1; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateX(-10vw); opacity: 0; }
+}
+
+@keyframes ufo-right {
+  0%   { transform: translateX(-10vw) rotate(90deg); opacity: 0; }
+  50%  { opacity: 1; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateX(110vw) rotate(90deg); opacity: 0; }
+}
+@keyframes ufo-left {
+  0%   { transform: translateX(110vw) rotate(270deg); opacity: 0; }
+  50%  { opacity: 1; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateX(-10vw) rotate(270deg); opacity: 0; }
+}

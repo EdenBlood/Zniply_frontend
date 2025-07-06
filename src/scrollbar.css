@@ -1,0 +1,28 @@
+/* Futuristic / Space themed custom scrollbar used globally */
+/* Firefox */
+/* html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-violet) var(--color-container);
+} */
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-container);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8332e5, #6442b2, #8332e5);
+  border-radius: 10px;
+  border: 2px solid var(--color-container);
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #923aff, #6442b2, #8d38f6);
+}
