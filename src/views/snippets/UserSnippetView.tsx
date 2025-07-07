@@ -7,6 +7,7 @@ import type { Snippet } from '@/types/index';
 import useGetSnippet from '@/hooks/useGetSnippet';
 import EditorReadonly from '@/components/EditorReadonly';
 import SnippetActions from '@/components/Snippet/SnippetActions';
+import DeleteSnippetModal from '@/components/Snippet/DeleteSnippetModal';
 
 
 export default function UserSnippetView() {
@@ -38,7 +39,7 @@ export default function UserSnippetView() {
 
   //* onCLick Eliminar Snippet
   const handleDeleteSnippet = (snippetId: Snippet['_id']) => {
-    if (window.confirm("¿Estás seguro que deseas eliminar este snippet? Esta acción no se puede deshacer.")) mutate({ snippetId });
+    mutate({ snippetId });
   }
 
   if (isError) {
@@ -54,10 +55,12 @@ export default function UserSnippetView() {
           <SnippetActions
             snippetId={snippet._id}
             isPending={isPending}
-            handleDeleteSnippet={handleDeleteSnippet}
           />
         )}
       </article>
+
+      <DeleteSnippetModal handleDeleteSnippet={handleDeleteSnippet} />
     </>
   )
+  // return <Navigate to={`/snippet/user/${userId}`}/>
 }

@@ -1,52 +1,42 @@
 import Loader from "@/components/Loader"
 import SnippetHeader from "@/components/Snippet/SnippetHeader"
 import { useAuthContext } from "@/hooks/useAuthContext"
-import { useEffect } from "react"
-import { Outlet } from "react-router-dom"
-import { toast } from "react-toastify"
+import { useEffect, useState } from "react"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import type { Snippet } from "../types"
+import AskModal from "@/components/AskModal"
 
 export default function AppLayout() {
-  const {data, isLoading} = useAuthContext()
+  const [guestSnippets, setGuestSnippets] = useState<Snippet[]>([])
   
-  const isGuest = data ? false : true
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const { data, isLoading } = useAuthContext()
+  
+  const isGuest:boolean = data ? false : true
 
   useEffect(() => {
     if (!data) return
+
     const alreadyAsked = localStorage.getItem('Zniply_Asked')
     const guestSnippetsRaw = localStorage.getItem("Zniply_Guest_Snippets");
 
-    if (!alreadyAsked && guestSnippetsRaw) {
-      try {
-        const guestSnippets = JSON.parse(guestSnippetsRaw);
-  
-        if (guestSnippets.length > 0) {
-          const confirm = window.confirm("¿Tienes snippets como invitado, quiere almacenarlos en esta cuenta?")
-  
-          if (confirm) {
-            //* creamos los snippets
+    if (alreadyAsked || !guestSnippetsRaw) return;
+    
+    const parsed: Snippet[] = JSON.parse(guestSnippetsRaw)
 
-            localStorage.removeItem("Zniply_Guest_Snippets");
-            toast.success('Snippets guardados en tu cuanta correctamente')
-          } else {
-            toast.info('Los snippets siguen en localStorage')
-          }
-        } else {
-          return
-        }
-  
-        localStorage.setItem('Zniply_Asked', 'true')
-      } catch (error) {
-        toast.error('Snippets en localStorage corrompidos')
-        console.log(error)
-      }
+    if (parsed.length > 0) {
+      setGuestSnippets(parsed)
+      navigate(location.pathname + `?ask=true`)
     }
-  },[data])
-  
+  },[location.pathname, data, navigate])
+
   if (isLoading) return <Loader />
   return (
     <>
       <div className='w-full h-screen grid grid-rows-[auto_1fr_auto] gap-4'>
-        <SnippetHeader isGuest={isGuest}/>        
+        <SnippetHeader isGuest={isGuest} />
 
         <div className='flex flex-row gap-6 overflow-hidden w-6xl mx-auto'>
           <Outlet />
@@ -56,6 +46,8 @@ export default function AppLayout() {
           <div className='text-center text-xs'>Todos los derechos reservados a EdenBlood</div>
         </footer>
       </div>
+
+      <AskModal guestSnippets={guestSnippets}/>
     </>
   )
 }

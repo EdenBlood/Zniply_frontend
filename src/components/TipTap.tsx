@@ -36,7 +36,6 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
           rel: 'noopener noreferrer'
         }
       })],
-    content: ''
   })!;
 
   useEffect(() => {
@@ -44,8 +43,7 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
       Promise.resolve().then(() => {
         editor.commands.setContent(contentApi.code);
       })
-    }
-    if (editor) {
+    } else {
       Promise.resolve().then(() => {
         editor.commands.setContent(createSnippetTutorial())
       })

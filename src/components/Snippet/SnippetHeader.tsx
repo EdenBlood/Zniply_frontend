@@ -31,12 +31,12 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
     <header className="w-6xl shadow-md mx-auto mt-2 bg-navbar rounded-2xl z-20">
       <nav className='flex justify-between px-5 items-center py-2'>
         <div className='flex items-center'>
-          <Link className='mr-10' to={!isGuest ? `/snippet/user/${user?._id}` : "/snippet/guest"}>
+          <Link className='mr-7' to={!isGuest ? `/snippet/user/${user?._id}` : "/snippet/guest"}>
             <h2 className='text-2xl text-black font-bold  drop-shadow-sm hover:drop-shadow-lg transform duration-300 hover:tracking-wider'>Zniply</h2>
           </Link>
 
           <Link
-            className='font-semibold text-xl border-r border-l px-2 py-1 text-container/80 border-slate-300 hover:text-accent hover:border-accent transition-colors duration-300'
+            className='font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:bg-slate-50 hover:text-accent transition-colors duration-300'
             to={!isGuest 
               ? "/create-snippet" 
               : canCreate 
@@ -44,7 +44,7 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
                 : "/auth/create-account"
             }
           >
-            {canCreate ? "Crear Snippet" : "Regístrate"}
+            {canCreate ? "Crear Snippet" : "Limite alcanzado"}
           </Link>
         </div>
 
@@ -52,7 +52,7 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
           <SearchInput />
         </div>
 
-        <div className='flex items-center gap-10'>
+        <div className='flex items-center gap-2'>
           <SnippetHeaderAuth />
         </div>
       </nav>

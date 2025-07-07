@@ -2,7 +2,7 @@ import api from '@/lib/api'
 import { isAxiosError } from 'axios';
 import { snippetsSchema, snippetSchema, type Snippet, type SnippetData, snippetResponseSchema, type User, snippetsAnotherUserSchema, searchSnippetResponseSchema } from '@/types/index';
 
-type Props= {
+export type Props= {
   formData: SnippetData;
   snippetId: Snippet['_id'];
   search: string;
