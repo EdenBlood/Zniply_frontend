@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import GuestSidebar from "@/components/Snippet/GuestSidebar";
 import MySidebar from "@/components/Snippet/MySidebar";
 import OtherUserSideBar from "@/components/Snippet/OtherUserSideBar";
@@ -12,9 +13,10 @@ export default function SidebarLayout({ isGuest }: SidebarLayoutProps) {
   const params = useParams()
   const userId: string | null = params.userId || null
 
-  const { data: user } = useAuthContext()
+  const { data: user, isLoading } = useAuthContext()
 
-  if (!isGuest && userId === null && user) return <Navigate to={`/snippet/user/${user._id}`} />
+  if (isLoading) return <Loader />
+  if (!isGuest && userId === null && user) return <Navigate to={`/snippet/user/${user._id}`} replace/>
   return (
     <>
       {

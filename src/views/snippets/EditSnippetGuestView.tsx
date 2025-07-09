@@ -1,8 +1,10 @@
 import TipTap from "@/components/TipTap";
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { Snippet } from "@/types/index";
 import { toast } from "react-toastify";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import Loader from "@/components/Loader";
 
 type EditSnippetGuestViewProps = {
   isGuest?: boolean
@@ -14,21 +16,38 @@ export default function EditSnippetGuestView({ isGuest }: EditSnippetGuestViewPr
   
   const params = useParams();
   const snippetId:string = params.snippetId!
+
+  const navigate = useNavigate()
+  
+  const { data: user } = useAuthContext();
+
+  useEffect(() => {
+    if (user) {
+      toast.error('No autorizado');
+      navigate(`/snippet/user/${user._id}`, {replace: true});
+      return;
+    }
+  }, [user, navigate]);
   
   useEffect(() => {
     const storage = window.localStorage.getItem('Zniply_Guest_Snippets')
     if (storage) {
       const snippets = JSON.parse(storage)
-      const snippet = snippets.filter((snippet: Snippet) => snippet._id === snippetId)[0]
+      const snippet = snippets.find((snippet: Snippet) => snippet._id === snippetId)
       setSnippet(snippet)
     }
     setIsLoading(false)
   }, [snippetId])
 
-  if (!snippet && !isLoading){ 
-    toast.error('Snippet no encontrado');
-    return <Navigate to="/snippet/guest" />
-  } 
+  useEffect(() => {
+    if (!snippet && !isLoading && user === null){ 
+      toast.error('Snippet no encontrado');
+      navigate("/snippet/guest", {replace: true})
+      return;
+    } 
+  },[snippet, isLoading, user, navigate])
+  
+  if (isLoading) return <Loader/>
   if (snippet) return (
     <>
       <div className="relative overflow-y-auto">

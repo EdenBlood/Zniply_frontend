@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import TipTap from "@/components/TipTap";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { useEffect } from "react";
@@ -8,7 +9,7 @@ type CreateSnippetViewProps = {
 };
 
 export default function CreateSnippetView({ isGuest }: CreateSnippetViewProps) {
-  const { data: user } = useAuthContext();
+  const { data: user, isLoading } = useAuthContext();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ export default function CreateSnippetView({ isGuest }: CreateSnippetViewProps) {
   const isLogged = !!user;
 
   useEffect(() => {
+    if (isLoading) return;
+
     // Si está logueado y está en /guest, redirigir
     if (isLogged && location.pathname.includes("/guest")) {
       navigate("/create-snippet", { replace: true });
@@ -25,8 +28,9 @@ export default function CreateSnippetView({ isGuest }: CreateSnippetViewProps) {
     if (!isLogged && location.pathname === "/create-snippet") {
       navigate("/create-snippet/guest", { replace: true });
     }
-  }, [isLogged, location.pathname, navigate]);
+  }, [isLogged, location.pathname, navigate, isLoading]);
 
+  if (isLoading) return <Loader />
   return (
     <>
       <div className="relative overflow-y-auto">

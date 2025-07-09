@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@/layouts/AppLayout";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import CreateSnippetView from "@/views/snippets/CreateSnippetView";
-import Global from './Global';
-import SnippetTutorialView from '@/views/snippets/SnippetTutorialView'
+import Global from "./Global";
+import SnippetTutorialView from "@/views/snippets/SnippetTutorialView";
 import EditSnippetView from "./views/snippets/EditSnippetView";
 import AuthLayout from "./layouts/AuthLayout";
 import CreateAccountView from "./views/auth/CreateAccountView";
@@ -25,85 +25,89 @@ export const router = createBrowserRouter([
         path: "/snippet",
         element: <AppLayout />,
         children: [
-          { //* Logged User
-            path: "/snippet/user/:userId",
+          {
+            //* Logged User
+            path: "user/:userId",
             element: <SidebarLayout />,
             children: [
               {
                 index: true,
-                element: <SnippetTutorialView />
+                element: <SnippetTutorialView />,
               },
               {
-                path: "/snippet/user/:userId/:snippetId",
-                element: <UserSnippetView />
-              }
-            ]
+                path: ":snippetId",
+                element: <UserSnippetView />,
+              },
+            ],
           },
-          { //* Guest User
-            path: '/snippet/guest',
+          {
+            //* Guest User
+            path: "guest",
             element: <SidebarLayout isGuest={true} />,
             children: [
               {
                 index: true,
-                element: <SnippetTutorialView />
+                element: <SnippetTutorialView />,
               },
               {
-                path: "/snippet/guest/:snippetId",
-                element: <GuestSnippetView isGuest={true} />
-              }
-            ]
-          }
-        ]
+                path: ":snippetId",
+                element: <GuestSnippetView isGuest={true} />,
+              },
+            ],
+          },
+        ],
       },
-      { //* Logged User
+      {
+        //* Logged User
         path: "/create-snippet",
-        element: <CreateSnippetView />
+        element: <CreateSnippetView />,
       },
       {
         path: "/edit-snippet/user/:userId/:snippetId",
-        element: <EditSnippetView />
+        element: <EditSnippetView />,
       },
-      { //* Guest User
+      {
+        //* Guest User
         path: "/create-snippet/guest",
-        element: <CreateSnippetView isGuest={true} />
+        element: <CreateSnippetView isGuest={true} />,
       },
       {
         path: "/edit-snippet/guest/:snippetId",
-        element: <EditSnippetGuestView isGuest={true} />
+        element: <EditSnippetGuestView isGuest={true} />,
       },
       {
         element: <AuthLayout />,
         children: [
           {
             path: "/auth/create-account",
-            element: <CreateAccountView />
+            element: <CreateAccountView />,
           },
           {
             path: "/auth/login",
-            element: <LoginView />
+            element: <LoginView />,
           },
           {
             path: "/auth/resend-code",
-            element: <ResendCodeView />
+            element: <ResendCodeView />,
           },
           {
             path: "/auth/confirm-account",
-            element: <ConfirmTokenView />
+            element: <ConfirmTokenView />,
           },
           {
             path: "/auth/forgot-password",
-            element: <ForgotPasswordView />
+            element: <ForgotPasswordView />,
           },
           {
             path: "/auth/forgot-password/code",
-            element: <ForgotPasswordCodeView />
+            element: <ForgotPasswordCodeView />,
           },
           {
             path: "/auth/change-password/:token",
-            element: <ChangePasswordView />
-          }
-        ]
-      }
-    ]
-  }
-])
+            element: <ChangePasswordView />,
+          },
+        ],
+      },
+    ],
+  },
+]);

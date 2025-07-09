@@ -3,7 +3,8 @@ import TipTap from "@/components/TipTap";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import SnippetService from "@/services/SnippetService";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function EditSnippetView() {
@@ -11,7 +12,26 @@ export default function EditSnippetView() {
   const snippetId:string = params.snippetId!
   const userId:string = params.userId! 
   
-  const { data: user } = useAuthContext()
+  const navigate = useNavigate();
+  
+  const { data: user, isLoading: authLoading } = useAuthContext()
+
+  // no hay user
+  useEffect(() => {
+    if (authLoading) return;
+    
+    if (!user) {
+      toast.error('No autorizado')
+      navigate('/snippet/guest', {replace: true})
+    } else if ( user?._id.toString() !== userId.toString() ) {
+      toast.error('No autorizado');
+      navigate(`/snippet/user/${user?._id}`, {replace: true})
+    }
+  }, [navigate, user, userId, authLoading])
+
+  // Si no es el propietario del snippet
+  useEffect(() => {
+  },[user, userId, navigate])
   
   const { data: snippet, isLoading, isError, error } = useQuery({
     queryKey: ['editSnippet', snippetId],
@@ -19,13 +39,9 @@ export default function EditSnippetView() {
     retry: false,
     refetchOnWindowFocus: false,
   })
-
-  if ( user?._id.toString() !== userId.toString() ) {
-    toast.error('No autorizado');
-    <Navigate to={`/snippet/user/${user?._id}`} />
-  }
+  
   if (isError) return  <div>Error: {error.message}</div>;
-  if (isLoading) return <Loader />;
+  if (isLoading || authLoading) return <Loader />;
   if (snippet) return (
     <>
       <div className="relative overflow-y-auto">

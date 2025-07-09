@@ -3,10 +3,11 @@ import { useEffect, useState } from "react"
 import SnippetNavCard from "./SnippetNavCard"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
-
+import Loader from "../Loader"
 
 export default function GuestSidebar() {
   const [snippets, setSnippets] = useState<Snippet[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   
   useEffect(() => {
     const loadSnippets = () => {
@@ -21,6 +22,7 @@ export default function GuestSidebar() {
           console.log(error)
         }
       }
+      setIsLoading(false);
     };
 
     loadSnippets();
@@ -30,6 +32,7 @@ export default function GuestSidebar() {
     return () => window.removeEventListener('guest-snippets-updated', loadSnippets)
   }, [])
 
+  if (isLoading) return <Loader />
   return (
     <aside className="w-88 sticky bg-container/50 rounded-xl h-min max-h-full overflow-y-auto overflow-hidden">
       <div className="sticky top-0 left-0 w-full h-3 bg-gradient-to-b from-black/20 to-transparent z-10" />

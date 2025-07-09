@@ -22,13 +22,11 @@ console.log(mensaje);
 <p></p>
 <p>Este es tu lugar para guardar desde <em>atajos útiles</em> hasta <em>funciones completas</em> que no querés volver a escribir desde cero.</p>
 <p></p>
-<p><strong>¡Empezá a crear tu biblioteca personal de snippets hoy!</strong></p>`
+<p><strong>¡Empezá a crear tu biblioteca personal de snippets hoy!</strong></p>`;
 
   return (
-    <>
-      <article className="w-full">
-        <EditorReadonly content={tutorial} />
-      </article>
-    </>
-  )
+    <article className="w-full">
+      <EditorReadonly content={tutorial} />
+    </article>
+  );
 }

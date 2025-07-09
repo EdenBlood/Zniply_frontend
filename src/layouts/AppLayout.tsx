@@ -17,7 +17,9 @@ export default function AppLayout() {
   const isGuest:boolean = data ? false : true
 
   useEffect(() => {
-    if (!data) return
+    if (isLoading) return;
+
+    if (!data) return;
 
     const alreadyAsked = localStorage.getItem('Zniply_Asked')
     const guestSnippetsRaw = localStorage.getItem("Zniply_Guest_Snippets");
@@ -30,7 +32,7 @@ export default function AppLayout() {
       setGuestSnippets(parsed)
       navigate(location.pathname + `?ask=true`)
     }
-  },[location.pathname, data, navigate])
+  },[location.pathname, data, navigate, isLoading])
 
   if (isLoading) return <Loader />
   return (
