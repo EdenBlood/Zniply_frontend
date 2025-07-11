@@ -4,6 +4,24 @@
 @import './loader.css';
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+@font-face {
+  font-family: 'PolySans';
+  src: url('/fonts/PolySans-Bulky.woff2') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'PolySans';
+  src: url('/fonts/PolySans-Neutral.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'PolySans';
+  src: url('/fonts/PolySans-Slim.woff2') format('woff2');
+  font-weight: 300;
+}
+
 @theme {
 	/** bg */
   --color-primary: #1e1b2e;
@@ -36,6 +54,10 @@
 }
 
 @layer base {
+	.title {
+		font-family: "PolySans", "Outfit", sans-serif 
+	}
+	
 	body {
 		font-family: "Outfit", sans-serif;
 	}

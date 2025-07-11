@@ -16,6 +16,8 @@ import ChangePasswordView from "./views/auth/ChangePasswordView";
 import UserSnippetView from "./views/snippets/UserSnippetView";
 import EditSnippetGuestView from "./views/snippets/EditSnippetGuestView";
 import GuestSnippetView from "./views/snippets/GuestSnippetView";
+import LandingPageLayout from "./layouts/LandingPageLayout";
+import HomePageView from "./views/landingPage/HomePageView";
 
 export const router = createBrowserRouter([
   {
@@ -108,6 +110,15 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        element: <LandingPageLayout />,
+        children: [
+          {
+            path: "/",
+            element: <HomePageView />
+          }
+        ]
+      }
     ],
   },
 ]);

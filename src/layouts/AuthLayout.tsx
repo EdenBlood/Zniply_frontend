@@ -15,7 +15,7 @@ export default function AuthLayout() {
       <div className="w-96 max-w-[95vw] bg-white flex flex-col items-center justify-center">
         <header className="text-center my-4">
           <h1 className="text-7xl  font-extrabold tracking-wider text-primary hover:text-container drop-shadow-lg">
-            <Link to={"/inicio"}>Zniply</Link>
+            <Link to={"/"}>Zniply</Link>
           </h1>
           <Link
             to={"/snippet/guest"}
