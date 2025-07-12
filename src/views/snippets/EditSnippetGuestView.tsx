@@ -5,6 +5,7 @@ import type { Snippet } from "@/types/index";
 import { toast } from "react-toastify";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import Loader from "@/components/Loader";
+import Seo from "@/extensions/Seo";
 
 type EditSnippetGuestViewProps = {
   isGuest?: boolean
@@ -47,9 +48,19 @@ export default function EditSnippetGuestView({ isGuest }: EditSnippetGuestViewPr
     } 
   },[snippet, isLoading, user, navigate])
   
+  const metaData = {
+    title: "Editar Snippet",
+    description: "Editar snippet",
+    ogTitle: "Editar snippet",
+    ogDescription: "Editar snippet",
+    canonical: `https://zniply.space/edit-snippet/guest/${snippetId}`
+  }
+  
   if (isLoading) return <Loader/>
   if (snippet) return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
       <div className="relative overflow-y-auto">
         <TipTap contentApi={snippet} isGuest={isGuest} />
       </div>

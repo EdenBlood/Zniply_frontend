@@ -8,6 +8,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useParams, Navigate, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
+import Seo from "@/extensions/Seo";
 
 export default function ChangePasswordView() {
   const params = useParams();
@@ -18,7 +20,7 @@ export default function ChangePasswordView() {
   const navigate = useNavigate();
 
   const queryClient = useQueryClient()
-  
+
   const initialValues: ChangePasswordFormData = {
     password: "",
     password_repeat: ""
@@ -38,20 +40,32 @@ export default function ChangePasswordView() {
       queryClient.invalidateQueries({ queryKey: ['user'] })
       navigate(`/snippet/user/${data?.userId}`)
     },
-    onError: ({message}) => {
+    onError: ({ message }) => {
       toast.error(message)
     }
   })
 
-  const handleChangePassword = (formData: ChangePasswordFormData) => mutate({formData, token})
+  const handleChangePassword = (formData: ChangePasswordFormData) => mutate({ formData, token })
 
   if (!validToken) {
     toast.error("Token no valido");
     return (<Navigate to="/auth/forgot-password/code" />)
   }
+
+  const metaData = {
+    title: "Cambiar Contraseña",
+    description: "Cambia tu contraseña",
+    ogTitle: "Cambiar Contraseña",
+    ogDescription: "Cambia tu contraseña",
+    canonical: "https://zniply.space/auth/change-password"
+  }
+  
   return (
     <>
-      <TitleDescription title="Cambia tu contraseña" description="Ingresa la nueva contraseña" span="que deseas usar"/>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
+
+      <TitleDescription title="Cambia tu contraseña" description="Ingresa la nueva contraseña" span="que deseas usar" />
 
       <form
         className="w-full px-5 space-y-2"

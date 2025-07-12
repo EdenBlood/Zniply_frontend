@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Seo from "@/extensions/Seo";
 
 export default function EditSnippetView() {
   const params = useParams();
@@ -39,11 +40,21 @@ export default function EditSnippetView() {
     retry: false,
     refetchOnWindowFocus: false,
   })
+
+  const metaData = {
+    title: "Editar Snippet",
+    description: "Editar snippet",
+    ogTitle: "Editar snippet",
+    ogDescription: "Editar snippet",
+    canonical: `https://zniply.space/edit-snippet/user/${userId}/${snippetId}`
+  }
   
   if (isError) return  <div>Error: {error.message}</div>;
   if (isLoading || authLoading) return <Loader />;
   if (snippet) return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
       <div className="relative overflow-y-auto">
         <TipTap contentApi={snippet} />
       </div>

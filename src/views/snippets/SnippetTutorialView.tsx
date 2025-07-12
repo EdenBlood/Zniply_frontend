@@ -1,6 +1,12 @@
 import EditorReadonly from "@/components/EditorReadonly";
+import Loader from "@/components/Loader";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import Seo from "@/extensions/Seo";
+
 
 export default function SnippetTutorialView() {
+  const { data: user, isLoading: authLoading } = useAuthContext();
+
   const tutorial = `
 <h1><strong>📌 Bienvenido a tu espacio de snippets</strong></h1>
 <p></p>
@@ -24,9 +30,22 @@ console.log(mensaje);
 <p></p>
 <p><strong>¡Empezá a crear tu biblioteca personal de snippets hoy!</strong></p>`;
 
+  const metaData = {
+    title: "Tutorial",
+    description: "Tutorial de como usar Zniply, crea tu propio Snippet",
+    ogTitle: "Tutorial",
+    ogDescription: "Tutorial de como usar Zniply, crea tu propio Snippet",
+    canonical: user ? `https://zniply.space/snippet/${user._id}` : `https://zniply.space/snippet/guest`
+  }
+
+  if (authLoading) return <Loader />
   return (
-    <article className="w-full">
-      <EditorReadonly content={tutorial} />
-    </article>
+    <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
+      <article className="w-full">
+        <EditorReadonly content={tutorial} />
+      </article>
+    </>
   );
 }

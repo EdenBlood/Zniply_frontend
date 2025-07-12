@@ -8,19 +8,20 @@ import useGetSnippet from '@/hooks/useGetSnippet';
 import EditorReadonly from '@/components/EditorReadonly';
 import SnippetActions from '@/components/Snippet/SnippetActions';
 import DeleteSnippetModal from '@/components/Snippet/DeleteSnippetModal';
-
+import Loader from '@/components/Loader';
+import Seo from '@/extensions/Seo';
 
 export default function UserSnippetView() {
   const params = useParams();
   const snippetId: string = params.snippetId!;
-  const userId: string = params.userId!; 
+  const userId: string = params.userId!;
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
 
-  
+
   //* Traigo el snippet y si es mio
-  const { snippet, isError, isOwnerSnippet } = useGetSnippet(snippetId);
+  const { snippet, isError, isOwnerSnippet, isLoading: snippetLoading } = useGetSnippet(snippetId);
 
   //* Elimina el Snippet
   const { mutate, isPending } = useMutation({
@@ -42,12 +43,24 @@ export default function UserSnippetView() {
     mutate({ snippetId });
   }
 
+  const metaData = {
+    title: snippet?.title || "Zniply | Snippet",
+    description: snippet?.description || "Visualizá un snippet creado",
+    ogTitle: snippet?.title || "Visualizá un snippet creado",
+    ogDescription: snippet?.description || "Visualizá un snippet creado",
+    canonical: `https://zniply.space/snippet/user/${userId}/${snippetId}`
+  }
+
+
+  if (snippetLoading) return <Loader />
   if (isError) {
     toast.error('El snippet no existe')
     return <Navigate to={"/snippet"} />
   }
   if (snippet) return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
       <article className='w-full relative'>
         <EditorReadonly content={snippet.code} />
 
@@ -62,5 +75,4 @@ export default function UserSnippetView() {
       <DeleteSnippetModal handleDeleteSnippet={handleDeleteSnippet} />
     </>
   )
-  // return <Navigate to={`/snippet/user/${userId}`}/>
 }

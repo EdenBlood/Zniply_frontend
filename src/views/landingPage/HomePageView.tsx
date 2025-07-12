@@ -11,6 +11,7 @@ import {
   TagIcon,
 } from "@heroicons/react/24/outline";
 import EditorReadonly from "@/components/EditorReadonly";
+import Seo from "@/extensions/Seo";
 
 export default function HomePageView() {
   const { data: user, isLoading: authLoading } = useAuthContext();
@@ -39,10 +40,20 @@ export default function App() {
   return &lt;div&gt;{user ? \`Hola \${user.name}\` : 'Cargando...'}&lt;/div&gt;
 }</code></pre>
 `
-  
+
+  const metaData = {
+    title: "Zniply | Organiza y comparte snippets fácilmente",
+    description: "Zniply es la mejor herramienta para guardar, organizar y compartir snippets de código.",
+    ogTitle: "Zniply | Organiza y comparte snippets fácilmente",
+    ogDescription: "Zniply es la mejor herramienta para guardar, organizar y compartir snippets de código.",
+    canonical: "https://zniply.space/"
+  }
+
   if (authLoading) return <Loader />;
   return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+    
       <main className="w-6xl mx-auto pt-18 h-screen flex flex-col items-center justify-center gap-4">
         <h1 className="text-8xl title font-bold text-slate-50 text-center">
           Crea, Comparte y Almacena Snippets

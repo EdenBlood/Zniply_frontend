@@ -7,14 +7,15 @@ import AuthService from "@/services/AuthService";
 import { toast } from "react-toastify";
 import EmailForm from "@/components/Auth/EmailForm";
 import AuthLinks from "@/components/Auth/AuthLinks";
+import Seo from "@/extensions/Seo";
 
 
 export default function ResendCodeView() {
-  
 
-  const initialValues: ResendCodeFormData = {email: ""}
 
-  const { register, handleSubmit, formState: {errors}, reset } = useForm<ResendCodeFormData>({
+  const initialValues: ResendCodeFormData = { email: "" }
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<ResendCodeFormData>({
     defaultValues: initialValues
   })
 
@@ -24,15 +25,26 @@ export default function ResendCodeView() {
       toast.success(msg);
       reset();
     },
-    onError: ({message}) => {
+    onError: ({ message }) => {
       toast.error(message);
     }
   })
+
+  const handleForgotPassword = (formData: ResendCodeFormData) => mutate({ formData })
   
-  const handleForgotPassword = (formData: ResendCodeFormData) => mutate({formData})
+  const metaData = {
+    title: "Reenviar Código de Verificación",
+    description: "Si no recibiste el código de verificación, ingresa tu correo electrónico y te enviaremos ",
+    ogTitle: "Reenviar Código de Verificación",
+    ogDescription: "Si no recibiste el código de verificación, ingresa tu correo electrónico y te enviaremos ",
+    canonical: "https://zniply.space/auth/resend-code"  
+  }
   return (
     <>
-      <TitleDescription title="Reenviar código de verificación" description="Si no recibiste el código de verificación, ingresa tu correo electrónico y te enviaremos " span="un nuevo código" className="space-y-2"/>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
+
+      <TitleDescription title="Reenviar código de verificación" description="Si no recibiste el código de verificación, ingresa tu correo electrónico y te enviaremos " span="un nuevo código" className="space-y-2" />
 
       <form
         className="w-full px-5 space-y-4"

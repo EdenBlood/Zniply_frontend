@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from '@/context/AuthContext'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
@@ -12,8 +13,10 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools />
+      <HelmetProvider>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools />
+      </HelmetProvider>
     </AuthProvider>
   </QueryClientProvider>
 )

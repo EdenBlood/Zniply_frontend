@@ -7,6 +7,7 @@ import AuthService from "@/services/AuthService";
 import { toast } from "react-toastify";
 import InputSubmit from "@/components/Auth/InputSubmit";
 import AuthLinks from "@/components/Auth/AuthLinks";
+import Seo from "@/extensions/Seo";
 
 export default function CreateAccountView() {
   const initialValues : CreateAccountFormData = {
@@ -33,8 +34,18 @@ export default function CreateAccountView() {
   
   const handleCreateAccount = (formData :CreateAccountFormData) => mutate({formData})
   
+  const metaData = {
+    title: "Crear Cuenta Nueva",
+    description: "Crea tu cuenta y empieza a almacenar tus Snippets",
+    ogTitle: "Crear Cuenta Nueva",
+    ogDescription: "Crea tu cuenta y empieza a almacenar tus Snippets",
+    canonical: "https://zniply.space/auth/create-account"
+  }
+  
   return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+    
       <TitleDescription title="Crea tu cuenta" description="Crea tu cuenta y empieza a almacenar tus Snippets" span="de código" />
     
       <form 

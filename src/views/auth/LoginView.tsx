@@ -8,12 +8,13 @@ import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AuthLinks from "@/components/Auth/AuthLinks";
+import Seo from "@/extensions/Seo";
 
 export default function LoginView() {
   const navigate = useNavigate()
 
   const queryClient = useQueryClient();
-  
+
   const initialValues: LoginFormData = {
     email: "",
     password: ""
@@ -21,29 +22,39 @@ export default function LoginView() {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFormData>({ defaultValues: initialValues });
 
-  
+
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.login,
     onSuccess: (data) => {
-        toast.success(data?.msg)
-        
-        reset()
-        
-        queryClient.invalidateQueries({ queryKey: ['user'] })
-        
-        queueMicrotask(() => navigate(`/snippet/user/${data?.userId}`))
+      toast.success(data?.msg)
+
+      reset()
+
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+
+      queueMicrotask(() => navigate(`/snippet/user/${data?.userId}`))
     },
-    onError: ({message}) => {
+    onError: ({ message }) => {
       toast.error(message)
     }
   })
 
   const handleLogin = (formData: LoginFormData) => {
-    mutate({formData})
+    mutate({ formData })
   }
 
+  const metaData = {
+    title: "Iniciar Sesión",
+    description: "Inicia sesión para acceder a tus Snippets",
+    ogTitle: "Iniciar Sesión",
+    ogDescription: "Inicia sesión para acceder a tus Snippets",
+    canonical: "https://zniply.space/auth/login"
+  }
   return (
     <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
+
+
       <TitleDescription title="Iniciar Sesión" description="Inicia sesión para acceder a tus Snippets" span="de código" />
 
       <form

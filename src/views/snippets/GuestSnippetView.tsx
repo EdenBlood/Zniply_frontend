@@ -2,10 +2,11 @@ import EditorReadonly from "@/components/EditorReadonly";
 import SnippetActions from "@/components/Snippet/SnippetActions";
 import { useEffect, useState } from "react";
 import type { Snippet } from "@/types/index";
-import {useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteSnippetModal from "@/components/Snippet/DeleteSnippetModal";
 import Loader from "@/components/Loader";
+import Seo from "@/extensions/Seo";
 
 type GuestSnippetViewProps = {
   isGuest?: boolean;
@@ -17,7 +18,7 @@ export default function GuestSnippetView({ isGuest }: GuestSnippetViewProps) {
 
   const params = useParams();
   const snippetId: string = params.snippetId!;
-  
+
   const navigate = useNavigate();
 
   // Revisamos si esta logueado y si no lo esta nos traemos el snippet 
@@ -25,22 +26,22 @@ export default function GuestSnippetView({ isGuest }: GuestSnippetViewProps) {
     const storage = window.localStorage.getItem("Zniply_Guest_Snippets");
     if (storage) {
       const snippets = JSON.parse(storage);
-      const found = snippets.find((snippet:Snippet) => snippet._id === snippetId)
+      const found = snippets.find((snippet: Snippet) => snippet._id === snippetId)
 
       // Comprobamos que haya algún snippet
       if (!found) {
         toast.error("Snippet no encontrado");
-        navigate("/snippet/guest", {replace : true})
+        navigate("/snippet/guest", { replace: true })
         return;
       }
-      
+
       setSnippet(found);
     } else {
       toast.error('No hay snippets en localStorage')
-      navigate("/snippet/guest", {replace : true})
+      navigate("/snippet/guest", { replace: true })
     }
     setIsLoading(false);
-  
+
   }, [snippetId, navigate]);
 
   // Función para eliminar el snippet
@@ -65,20 +66,33 @@ export default function GuestSnippetView({ isGuest }: GuestSnippetViewProps) {
     }
   };
 
+  const metaData = {
+    title: snippet?.title || "Zniply | Snippet Invitado",
+    description: snippet?.description || "Visualizá un snippet creado como invitado",
+    ogTitle: snippet?.title || "Zniply | Snippet Invitado",
+    ogDescription: snippet?.description || "Visualizá un snippet creado como invitado",
+    canonical: `https://zniply.space/snippet/guest/${snippetId}`
+  };
+  
   if (isLoading) return <Loader />
-  if (snippet) return (
-    <article className="w-full relative">
-      <EditorReadonly content={snippet.code} />
+  if (snippet) 
+    return (
+    <>
+      <Seo title={metaData.title} description={metaData.description} ogTitle={metaData.ogTitle} ogDescription={metaData.ogDescription} canonical={metaData.canonical} />
 
-      {
-        <SnippetActions
-          snippetId={snippet._id}
-          isPending={false}
-          isGuest={isGuest}
-        />
-      }
+      <article className="w-full relative">
+        <EditorReadonly content={snippet.code} />
 
-      <DeleteSnippetModal handleDeleteSnippet={handleDeleteSnippet} />
-    </article>
+        {
+          <SnippetActions
+            snippetId={snippet._id}
+            isPending={false}
+            isGuest={isGuest}
+          />
+        }
+
+        <DeleteSnippetModal handleDeleteSnippet={handleDeleteSnippet} />
+      </article>
+    </>
   );
 }
