@@ -2,7 +2,6 @@
 @import './particles.css';
 @import './scrollbar.css';
 @import './loader.css';
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 @font-face {
   font-family: 'PolySans';
@@ -64,7 +63,7 @@
 	.tiptap {
 		padding: 2.5rem;
 		overflow: auto;
-    z-index: 0;
+    	z-index: 0;
 		font-size: .9rem;
 
 		&:focus {
