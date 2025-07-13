@@ -73,7 +73,8 @@ export default function CreateAccountView() {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
-            className="uppercase text-xs font-semibold tracking-wide text-secondary"
+            className="uppercase text-xs font-semibold tracking-wide text-secondary
+          "
           >
             Nombre
           </label>

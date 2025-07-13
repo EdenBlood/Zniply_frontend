@@ -1,35 +1,36 @@
-import { createBrowserRouter } from "react-router-dom";
-import AppLayout from "@/layouts/AppLayout";
-import SidebarLayout from "@/layouts/SidebarLayout";
-import CreateSnippetView from "@/views/snippets/CreateSnippetView";
-import Global from "./Global";
-import SnippetTutorialView from "@/views/snippets/SnippetTutorialView";
-import EditSnippetView from "./views/snippets/EditSnippetView";
-import AuthLayout from "./layouts/AuthLayout";
-import CreateAccountView from "./views/auth/CreateAccountView";
-import LoginView from "./views/auth/LoginView";
-import ForgotPasswordView from "./views/auth/ForgotPasswordView";
-import ResendCodeView from "./views/auth/ResendCodeView";
-import ConfirmTokenView from "./views/auth/ConfirmTokenView";
-import ForgotPasswordCodeView from "./views/auth/ForgotPasswordCodeView";
-import ChangePasswordView from "./views/auth/ChangePasswordView";
-import UserSnippetView from "./views/snippets/UserSnippetView";
-import EditSnippetGuestView from "./views/snippets/EditSnippetGuestView";
-import GuestSnippetView from "./views/snippets/GuestSnippetView";
-import LandingPageLayout from "./layouts/LandingPageLayout";
-import HomePageView from "./views/landingPage/HomePageView";
+import { createBrowserRouter } from 'react-router-dom';
+import AppLayout from '@/layouts/AppLayout';
+import SidebarLayout from '@/layouts/SidebarLayout';
+import CreateSnippetView from '@/views/snippets/CreateSnippetView';
+import Global from './Global';
+import SnippetTutorialView from '@/views/snippets/SnippetTutorialView';
+import EditSnippetView from './views/snippets/EditSnippetView';
+import AuthLayout from './layouts/AuthLayout';
+import CreateAccountView from './views/auth/CreateAccountView.1';
+import LoginView from './views/auth/LoginView';
+import ForgotPasswordView from './views/auth/ForgotPasswordView';
+import ResendCodeView from './views/auth/ResendCodeView';
+import ConfirmTokenView from './views/auth/ConfirmTokenView';
+import ForgotPasswordCodeView from './views/auth/ForgotPasswordCodeView';
+import ChangePasswordView from './views/auth/ChangePasswordView';
+import UserSnippetView from './views/snippets/UserSnippetView';
+import EditSnippetGuestView from './views/snippets/EditSnippetGuestView';
+import GuestSnippetView from './views/snippets/GuestSnippetView';
+import LandingPageLayout from './layouts/LandingPageLayout';
+import HomePageView from './views/landingPage/HomePageView';
+import ContactView from './views/landingPage/ContactView';
 
 export const router = createBrowserRouter([
   {
     element: <Global />,
     children: [
       {
-        path: "/snippet",
+        path: '/snippet',
         element: <AppLayout />,
         children: [
           {
             //* Logged User
-            path: "user/:userId",
+            path: 'user/:userId',
             element: <SidebarLayout />,
             children: [
               {
@@ -37,14 +38,14 @@ export const router = createBrowserRouter([
                 element: <SnippetTutorialView />,
               },
               {
-                path: ":snippetId",
+                path: ':snippetId',
                 element: <UserSnippetView />,
               },
             ],
           },
           {
             //* Guest User
-            path: "guest",
+            path: 'guest',
             element: <SidebarLayout isGuest={true} />,
             children: [
               {
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
                 element: <SnippetTutorialView />,
               },
               {
-                path: ":snippetId",
+                path: ':snippetId',
                 element: <GuestSnippetView isGuest={true} />,
               },
             ],
@@ -61,51 +62,51 @@ export const router = createBrowserRouter([
       },
       {
         //* Logged User
-        path: "/create-snippet",
+        path: '/create-snippet',
         element: <CreateSnippetView />,
       },
       {
-        path: "/edit-snippet/user/:userId/:snippetId",
+        path: '/edit-snippet/user/:userId/:snippetId',
         element: <EditSnippetView />,
       },
       {
         //* Guest User
-        path: "/create-snippet/guest",
+        path: '/create-snippet/guest',
         element: <CreateSnippetView isGuest={true} />,
       },
       {
-        path: "/edit-snippet/guest/:snippetId",
+        path: '/edit-snippet/guest/:snippetId',
         element: <EditSnippetGuestView isGuest={true} />,
       },
       {
         element: <AuthLayout />,
         children: [
           {
-            path: "/auth/create-account",
+            path: '/auth/create-account',
             element: <CreateAccountView />,
           },
           {
-            path: "/auth/login",
+            path: '/auth/login',
             element: <LoginView />,
           },
           {
-            path: "/auth/resend-code",
+            path: '/auth/resend-code',
             element: <ResendCodeView />,
           },
           {
-            path: "/auth/confirm-account",
+            path: '/auth/confirm-account',
             element: <ConfirmTokenView />,
           },
           {
-            path: "/auth/forgot-password",
+            path: '/auth/forgot-password',
             element: <ForgotPasswordView />,
           },
           {
-            path: "/auth/forgot-password/code",
+            path: '/auth/forgot-password/code',
             element: <ForgotPasswordCodeView />,
           },
           {
-            path: "/auth/change-password/:token",
+            path: '/auth/change-password/:token',
             element: <ChangePasswordView />,
           },
         ],
@@ -114,11 +115,15 @@ export const router = createBrowserRouter([
         element: <LandingPageLayout />,
         children: [
           {
-            path: "/",
-            element: <HomePageView />
-          }
-        ]
-      }
+            path: '/',
+            element: <HomePageView />,
+          },
+          {
+            path: '/contact',
+            element: <ContactView />,
+          },
+        ],
+      },
     ],
   },
 ]);
