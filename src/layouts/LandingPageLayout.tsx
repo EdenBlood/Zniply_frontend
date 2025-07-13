@@ -16,10 +16,12 @@ export default function LandingPageLayout() {
         <header className="w-6xl shadow-md bg-navbar rounded-2xl z-20 fixed left-1/2 -translate-x-1/2 top-2">
           <nav className="flex justify-between px-5 items-center py-2">
             <div className="flex items-center">
-              <Link className="mr-7" to={'/'}>
-                <h2 className="text-2xl text-black font-bold  drop-shadow-sm hover:drop-shadow-lg transform duration-300 hover:tracking-wider">
+              <Link className="mr-7 group" to={'/'}>
+                <span className="transform p-0 duration-500 group-hover:px-1">&lt;</span>
+                <h2 className="inline-block text-2xl text-black font-bold  drop-shadow-sm hover:drop-shadow-lg transform duration-300 group-hover:tracking-wider">
                   Zniply
                 </h2>
+                <span className="transform p-0 duration-500 group-hover:px-1">&gt;</span>
               </Link>
 
               <Link

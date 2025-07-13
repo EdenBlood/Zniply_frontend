@@ -43,7 +43,7 @@ export default function ContactView() {
           onSubmit={handleSubmit(handleContact)}
           autoComplete="off"
           noValidate
-          className="w-2xl bg-slate-900/90 p-8 rounded-md"
+          className="w-2xl bg-slate-900/90 shadow-xl p-8 rounded-md"
         >
           <fieldset className="space-y-2">
             <legend className="text-2xl font-bold text-slate-50 mb-10">

@@ -1,6 +1,6 @@
 import type { User } from '@/types/index';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 interface FooterProps {
   user: User['_id'] | undefined;
@@ -60,28 +60,40 @@ export default function Footer({ user }: FooterProps) {
             <h3 className="text-center font-bold text-2xl title">Legal</h3>
             <ul className="flex flex-col justify-center items-center">
               <li>
-                <Link
+                <NavLink
                   to="/privacy"
-                  className="block text-md text-slate-200 hover:text-accent-yellow transition-colors duration-300 cursor-pointer py-1"
+                  className={({ isActive }) =>
+                    `block text-md ${
+                      isActive ? `text-accent-yellow` : `text-slate-200 hover:text-accent-yellow`
+                    } transition-colors duration-300 cursor-pointer py-1`
+                  }
                 >
                   Política de privacidad
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/terms"
-                  className="block text-md text-slate-200 hover:text-accent-yellow transition-colors duration-300 cursor-pointer py-1"
+                  className={({ isActive }) =>
+                    `block text-md ${
+                      isActive ? `text-accent-yellow` : `text-slate-200 hover:text-accent-yellow`
+                    } transition-colors duration-300 cursor-pointer py-1`
+                  }
                 >
                   Términos y condiciones
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/contact"
-                  className="block text-md text-slate-200 hover:text-accent-yellow transition-colors duration-300 cursor-pointer py-1"
+                  className={({ isActive }) =>
+                    `block text-md ${
+                      isActive ? `text-accent-yellow` : `text-slate-200 hover:text-accent-yellow`
+                    } transition-colors duration-300 cursor-pointer py-1`
+                  }
                 >
                   Contacto
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>

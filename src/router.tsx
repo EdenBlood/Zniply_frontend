@@ -19,6 +19,8 @@ import GuestSnippetView from './views/snippets/GuestSnippetView';
 import LandingPageLayout from './layouts/LandingPageLayout';
 import HomePageView from './views/landingPage/HomePageView';
 import ContactView from './views/landingPage/ContactView';
+import TermsView from './views/landingPage/TermsView';
+import PrivacyView from './views/landingPage/PrivacyView';
 
 export const router = createBrowserRouter([
   {
@@ -121,6 +123,14 @@ export const router = createBrowserRouter([
           {
             path: '/contact',
             element: <ContactView />,
+          },
+          {
+            path: '/terms',
+            element: <TermsView />,
+          },
+          {
+            path: '/privacy',
+            element: <PrivacyView />,
           },
         ],
       },

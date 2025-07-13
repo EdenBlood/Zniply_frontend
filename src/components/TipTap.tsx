@@ -1,4 +1,4 @@
-import { useEditor, EditorContent, useEditorState } from '@tiptap/react'
+import { useEditor, EditorContent, useEditorState } from '@tiptap/react';
 import Underline from '@tiptap/extension-underline';
 import Paragraph from '@tiptap/extension-paragraph';
 import Image from '@tiptap/extension-image';
@@ -12,9 +12,9 @@ import { useEffect } from 'react';
 import Loader from './Loader';
 
 type TipTapProps = {
-  contentApi?: Snippet,
-  isGuest?: boolean
-}
+  contentApi?: Snippet;
+  isGuest?: boolean;
+};
 
 export default function TipTap({ contentApi, isGuest }: TipTapProps) {
   const editor = useEditor({
@@ -32,21 +32,22 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
         openOnClick: false,
         defaultProtocol: 'https',
         HTMLAttributes: {
-          target: "_blank",
-          rel: 'noopener noreferrer'
-        }
-      })],
+          target: '_blank',
+          rel: 'noopener noreferrer',
+        },
+      }),
+    ],
   })!;
 
   useEffect(() => {
     if (editor && contentApi?.code) {
       Promise.resolve().then(() => {
         editor.commands.setContent(contentApi.code);
-      })
+      });
     } else {
       Promise.resolve().then(() => {
-        editor.commands.setContent(createSnippetTutorial())
-      })
+        editor.commands.setContent(createSnippetTutorial());
+      });
     }
   }, [editor, contentApi]);
 
@@ -66,9 +67,9 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
         isUnorderedList: context.editor.isActive('bulletList'),
         isImage: context.editor.isActive('image'),
         isLink: context.editor.isActive('link'),
-      }
-    }
-  })
+      };
+    },
+  });
 
   const commands: Commands = {
     toggleBold: () => editor.chain().focus().toggleBold().run(),
@@ -84,14 +85,14 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
     addImage: () => {
       const url = window.prompt('URL de la imagen');
       if (url) {
-        editor.chain().focus().setImage({ src: url }).run()
+        editor.chain().focus().setImage({ src: url }).run();
       }
     },
     addLink: () => {
       const beforeURL = editor.getAttributes('link').href;
-      const url = window.prompt('URL a agregar', beforeURL)
+      const url = window.prompt('URL a agregar', beforeURL);
       if (url) {
-        editor.chain().focus().setLink({ href: url }).run()
+        editor.chain().focus().setLink({ href: url }).run();
       }
     },
     showHTML: () => {
@@ -102,14 +103,24 @@ export default function TipTap({ contentApi, isGuest }: TipTapProps) {
       const content = editor.getText();
       return content;
     },
-  }
-  if (!editor) return <Loader />
-  if (editor) return (
-    <>
-      <Toolbar commands={commands} editorState={editorState} editor={editor} contentApi={contentApi} isGuest={isGuest} />
-      <main className=''>
-        <EditorContent className='editor-create min-h-screen bg-gray-ancient w-[80vw] mx-auto mt-18 rounded-lg overflow-hidden max-w-4xl' editor={editor} />
-      </main>
-    </>
-  )
+  };
+  if (!editor) return <Loader />;
+  if (editor)
+    return (
+      <>
+        <Toolbar
+          commands={commands}
+          editorState={editorState}
+          editor={editor}
+          contentApi={contentApi}
+          isGuest={isGuest}
+        />
+        <main>
+          <EditorContent
+            className="editor-create min-h-screen bg-gray-ancient w-[80vw] mx-auto mt-18 rounded-lg overflow-hidden max-w-4xl"
+            editor={editor}
+          />
+        </main>
+      </>
+    );
 }

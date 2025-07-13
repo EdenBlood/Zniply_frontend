@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <section className="min-h-screen w-full items-center">
-      <div className="w-6xl mx-auto py-16 space-y-6 h-full flex flex-col justify-center gap-12">
+      <div className="w-6xl mx-auto pt-16 pb-6 space-y-6 h-full flex flex-col justify-center gap-12">
         <h1 className="text-center font-bold drop-shadow-md drop-shadow-slate-200/50 text-slate-50 title text-5xl">
           Características clave
         </h1>

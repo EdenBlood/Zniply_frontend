@@ -11,6 +11,7 @@ export const snippetSchemaDraft = z.object({
   description: z.string(),
   code: z.string(),
   user: z.string(),
+  language: z.string(),
 });
 
 export const snippetsSchema = z.object({
@@ -27,7 +28,7 @@ export const snippetResponseSchema = z.object({
 });
 
 export type Snippet = z.infer<typeof snippetSchemaDraft>;
-export type SnippetData = Pick<Snippet, 'title' | 'description' | 'code'>;
+export type SnippetData = Pick<Snippet, 'title' | 'description' | 'code' | 'language'>;
 
 //* Search */
 
