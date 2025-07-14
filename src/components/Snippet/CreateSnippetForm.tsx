@@ -52,7 +52,10 @@ export default function CreateSnippetForm({ editor, isGuest }: CreateSnippetForm
     }
 
     if (finalLanguage === '') {
-      finalLanguage = 'txt';
+      finalLanguage = 'TXT';
+      setFormData({ ...formData, language: finalLanguage });
+    } else if (finalLanguage.length <= 3) {
+      finalLanguage = finalLanguage.toUpperCase();
       setFormData({ ...formData, language: finalLanguage });
     }
 

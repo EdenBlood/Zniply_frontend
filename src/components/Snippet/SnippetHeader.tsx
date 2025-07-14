@@ -43,7 +43,7 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
           </Link>
 
           <Link
-            className="font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:bg-slate-50 hover:text-accent transition-colors duration-300"
+            className="font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:text-accent transition-colors duration-300"
             to={
               !isGuest
                 ? '/create-snippet'
