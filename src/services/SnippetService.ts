@@ -1,39 +1,50 @@
-import api from '@/lib/api'
+import api from '@/lib/api';
 import { isAxiosError } from 'axios';
-import { snippetsSchema, snippetSchema, type Snippet, type SnippetData, snippetResponseSchema, type User, snippetsAnotherUserSchema, searchSnippetResponseSchema } from '@/types/index';
+import {
+  snippetsSchema,
+  snippetSchema,
+  type Snippet,
+  type SnippetData,
+  snippetResponseSchema,
+  type User,
+  snippetsAnotherUserSchema,
+  searchSnippetResponseSchema,
+  snippetLikeSchema,
+  snippetLikeResponseSchema,
+} from '@/types/index';
 
-export type Props= {
+export type Props = {
   formData: SnippetData;
   snippetId: Snippet['_id'];
   search: string;
   userId: User['_id'];
-}
+};
 
 export default {
-  createSnippet: async ({formData}: Pick<Props, 'formData'>) => {
+  createSnippet: async ({ formData }: Pick<Props, 'formData'>) => {
     const url = `/snippets`;
     try {
       const { data } = await api.post(url, formData);
 
-      const response = snippetResponseSchema.safeParse(data)
+      const response = snippetResponseSchema.safeParse(data);
 
-      if (response.success) return response.data
+      if (response.success) return response.data;
     } catch (error) {
       if (isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.error)
+        throw new Error(error.response.data.error);
       }
     }
   },
 
-  getAllUserSnippets: async ({userId}: Pick<Props, 'userId'>) => {
+  getAllUserSnippets: async ({ userId }: Pick<Props, 'userId'>) => {
     const url = `/snippets/user/${userId}`;
     try {
       const { data } = await api.get(url);
 
-      const response = snippetsAnotherUserSchema.safeParse(data)
-      if (response.success) return response.data
+      const response = snippetsAnotherUserSchema.safeParse(data);
+      if (response.success) return response.data;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
@@ -47,64 +58,91 @@ export default {
       const response = snippetsSchema.safeParse(data);
       if (response.success) return response.data.snippet;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
   },
-  
 
-  getSnippetById: async ({snippetId}: Pick<Props, 'snippetId'> ) => {
+  getSnippetById: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
     const url = `/snippets/${snippetId}`;
     try {
       const { data } = await api.get(url);
       const response = snippetSchema.safeParse(data);
       if (response.success) return response.data.snippet;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
   },
 
-  updateSnippet: async ({formData, snippetId}: Pick<Props, 'formData' | 'snippetId'>) => {
-    const url = `/snippets/${snippetId}`
+  updateSnippet: async ({ formData, snippetId }: Pick<Props, 'formData' | 'snippetId'>) => {
+    const url = `/snippets/${snippetId}`;
     try {
       const { data } = await api.put(url, formData);
 
-      const response = snippetResponseSchema.safeParse(data)
-      if (response.success) return response.data
+      const response = snippetResponseSchema.safeParse(data);
+      if (response.success) return response.data;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
   },
 
-  deleteSnippet: async ({snippetId}: Pick<Props, 'snippetId'>) => {
+  deleteSnippet: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
     const url = `/snippets/${snippetId}`;
     try {
-      const { data } = await api.delete<{msg: string}>(url);
+      const { data } = await api.delete<{ msg: string }>(url);
       return data.msg;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
   },
 
-  searchSnippets: async ({search}: Pick<Props, 'search'>) => {
+  searchSnippets: async ({ search }: Pick<Props, 'search'>) => {
     const url = `/snippets/search?query=${search}`;
 
     try {
       const { data } = await api.get(url);
-      
-      const response = searchSnippetResponseSchema.safeParse(data)
-      if (response.success) return response.data
+
+      const response = searchSnippetResponseSchema.safeParse(data);
+      if (response.success) return response.data;
     } catch (error) {
-      if( isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);
       }
     }
-  }
-}
+  },
+
+  likeSnippet: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
+    const url = `/snippets/${snippetId}/like`;
+    try {
+      const { data } = await api.post(url);
+
+      const response = snippetLikeResponseSchema.safeParse(data);
+      if (response.success) return response.data;
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.error);
+      }
+    }
+  },
+
+  getSnippetLiked: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
+    const url = `/snippets/${snippetId}/like`;
+    try {
+      const { data } = await api.get(url);
+
+      const response = snippetLikeSchema.safeParse(data);
+      if (response.success) return response.data.liked;
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.error);
+      }
+    }
+  },
+};

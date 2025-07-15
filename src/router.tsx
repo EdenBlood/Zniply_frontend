@@ -27,12 +27,11 @@ export const router = createBrowserRouter([
     element: <Global />,
     children: [
       {
-        path: '/snippet',
         element: <AppLayout />,
         children: [
           {
             //* Logged User
-            path: 'user/:userId',
+            path: '/snippet/user/:userId',
             element: <SidebarLayout />,
             children: [
               {
@@ -40,7 +39,7 @@ export const router = createBrowserRouter([
                 element: <SnippetTutorialView />,
               },
               {
-                path: ':snippetId',
+                path: '/snippet/user/:userId/:snippetId',
                 element: <UserSnippetView />,
               },
             ],

@@ -18,7 +18,7 @@
       "@/data/*": ["data/*"],
       "@/utils/*": ["utils/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/context/*": ["context/*"],
+      "@/context/*": ["context/*"]
     },
 
     /* Bundler mode */
@@ -37,9 +37,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/refractor-lang.d.ts" 
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/refractor-lang.d.ts"]
 }

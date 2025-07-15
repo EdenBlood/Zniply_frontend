@@ -12,6 +12,7 @@ export const snippetSchemaDraft = z.object({
   code: z.string(),
   user: z.string(),
   language: z.string(),
+  likeCount: z.number(),
 });
 
 export const snippetsSchema = z.object({
@@ -25,6 +26,15 @@ export const snippetSchema = z.object({
 export const snippetResponseSchema = z.object({
   msg: z.string(),
   snippet: snippetSchemaDraft,
+});
+
+export const snippetLikeSchema = z.object({
+  liked: z.boolean(),
+});
+
+export const snippetLikeResponseSchema = z.object({
+  msg: z.string(),
+  liked: z.boolean(),
 });
 
 export type Snippet = z.infer<typeof snippetSchemaDraft>;

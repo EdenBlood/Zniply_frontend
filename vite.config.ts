@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import tailwindcss from '@tailwindcss/vite';
+import { fileURLToPath, URL } from 'node:url';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,20 +9,19 @@ export default defineConfig({
   server: {
     host: 'localhost',
     proxy: {
-      "/api": {
+      '/api': {
         target: 'http://localhost:4000',
         changeOrigin: false,
-        secure: false
-      }
-    }
+        secure: false,
+      },
+    },
   },
   resolve: {
     alias: {
-      '@' : fileURLToPath( new URL('./src', import.meta.url))
-    }
-  }
-})
-
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
 
 /*
 import { defineConfig } from 'vite'
