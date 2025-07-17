@@ -9,8 +9,6 @@ import {
   type User,
   snippetsAnotherUserSchema,
   searchSnippetResponseSchema,
-  snippetLikeSchema,
-  snippetLikeResponseSchema,
 } from '@/types/index';
 
 export type Props = {
@@ -111,34 +109,6 @@ export default {
 
       const response = searchSnippetResponseSchema.safeParse(data);
       if (response.success) return response.data;
-    } catch (error) {
-      if (isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.error);
-      }
-    }
-  },
-
-  likeSnippet: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
-    const url = `/snippets/${snippetId}/like`;
-    try {
-      const { data } = await api.post(url);
-
-      const response = snippetLikeResponseSchema.safeParse(data);
-      if (response.success) return response.data;
-    } catch (error) {
-      if (isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.error);
-      }
-    }
-  },
-
-  getSnippetLiked: async ({ snippetId }: Pick<Props, 'snippetId'>) => {
-    const url = `/snippets/${snippetId}/like`;
-    try {
-      const { data } = await api.get(url);
-
-      const response = snippetLikeSchema.safeParse(data);
-      if (response.success) return response.data.liked;
     } catch (error) {
       if (isAxiosError(error) && error.response) {
         throw new Error(error.response.data.error);

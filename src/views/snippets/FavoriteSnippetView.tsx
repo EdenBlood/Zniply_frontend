@@ -10,13 +10,15 @@ import DeleteSnippetModal from '@/components/Snippet/DeleteSnippetModal';
 import Loader from '@/components/Loader';
 import Seo from '@/extensions/Seo';
 import SnippetLike from '@/components/Snippet/SnippetLike';
+import { useAuthContext } from '@/hooks/useAuthContext';
 
-export default function UserSnippetView() {
+export default function FavoriteSnippetView() {
   const params = useParams();
   const snippetId: string = params.snippetId!;
-  const userId: string = params.userId!;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  const { data: user, isLoading: authLoading } = useAuthContext();
 
   //* Traigo el snippet y si es mio
   const { snippet, isError, isOwnerSnippet, isLoading: snippetLoading } = useGetSnippet(snippetId);
@@ -27,10 +29,10 @@ export default function UserSnippetView() {
     onSuccess: (msg) => {
       toast.success(msg);
       queryClient.invalidateQueries({ queryKey: ['snippets'] });
-      queryClient.invalidateQueries({ queryKey: ['snippets', userId] });
+      queryClient.invalidateQueries({ queryKey: ['snippets', user?._id] });
       queryClient.invalidateQueries({ queryKey: ['snippet', snippetId] });
       queryClient.invalidateQueries({ queryKey: ['snippetsLiked'] });
-      navigate(`/snippet/user/${userId}`);
+      navigate(`/snippet/favorite`);
     },
     onError: ({ message }) => {
       toast.error(message);
@@ -47,11 +49,12 @@ export default function UserSnippetView() {
     description: snippet?.description || 'Visualizá un snippet creado',
     ogTitle: snippet?.title || 'Visualizá un snippet creado',
     ogDescription: snippet?.description || 'Visualizá un snippet creado',
-    canonical: `https://zniply.space/snippet/user/${userId}/${snippetId}`,
+    canonical: `https://zniply.space/snippet/favorite/${snippetId}`,
   };
 
-  if (snippetLoading) return <Loader />;
-  if (isError) return <Navigate to={`/snippet/user/${userId}`} replace />;
+  if (snippetLoading || authLoading) return <Loader />;
+  if (!user) return <Navigate to={`/snippet/guest`} replace />;
+  if (isError) return <Navigate to={`/snippet/favorite`} replace />;
   if (snippet)
     return (
       <>

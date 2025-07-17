@@ -5,9 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 type SnippetNavCardProps = {
   snippets: Snippet[];
+  favorite?: boolean;
 };
 
-export default function SnippetNavCard({ snippets }: SnippetNavCardProps) {
+export default function SnippetNavCard({ snippets, favorite }: SnippetNavCardProps) {
   const [openLanguage, setOpenLanguage] = useState<{ [lang: string]: boolean }>({});
 
   const toggleLanguage = (lang: string) => {
@@ -54,7 +55,9 @@ export default function SnippetNavCard({ snippets }: SnippetNavCardProps) {
                   <li key={snippet._id} className="w-full">
                     <NavLink
                       to={
-                        snippet.user === 'guest'
+                        favorite
+                          ? `/snippet/favorite/${snippet._id}`
+                          : snippet.user === 'guest'
                           ? `/snippet/guest/${snippet._id}`
                           : `/snippet/user/${snippet.user}/${snippet._id}`
                       }

@@ -37,6 +37,10 @@ export const snippetLikeResponseSchema = z.object({
   liked: z.boolean(),
 });
 
+export const snippetsLikedSchema = z.object({
+  snippet: z.array(snippetSchemaDraft),
+});
+
 export type Snippet = z.infer<typeof snippetSchemaDraft>;
 export type SnippetData = Pick<Snippet, 'title' | 'description' | 'code' | 'language'>;
 

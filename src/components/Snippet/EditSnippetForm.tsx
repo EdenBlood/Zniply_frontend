@@ -30,6 +30,7 @@ export default function EditSnippetForm({ editor, contentApi, isGuest }: EditSni
       queryClient.invalidateQueries({ queryKey: ['snippet', snippetId] });
       queryClient.invalidateQueries({ queryKey: ['editSnippet', snippetId] });
       queryClient.invalidateQueries({ queryKey: ['snippets'] });
+      queryClient.invalidateQueries({ queryKey: ['snippetsLiked'] });
     },
     onError: ({ message }) => {
       toast.error(message);

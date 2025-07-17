@@ -1,5 +1,5 @@
 import { useAuthContext } from '@/hooks/useAuthContext';
-import SnippetService from '@/services/SnippetService';
+import LikeService from '@/services/LikeService';
 import type { Snippet } from '@/types/index';
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -14,7 +14,7 @@ export default function SnippetLike({ snippet }: SnippetLikeProps) {
   const queryClient = useQueryClient();
 
   const { data: getLiked, isLoading } = useQuery({
-    queryFn: () => SnippetService.getSnippetLiked({ snippetId: snippet._id }),
+    queryFn: () => LikeService.getSnippetLiked({ snippetId: snippet._id }),
     queryKey: ['like', snippet._id],
     retry: false,
     refetchOnWindowFocus: false,
@@ -28,11 +28,13 @@ export default function SnippetLike({ snippet }: SnippetLikeProps) {
   }, [getLiked]);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: SnippetService.likeSnippet,
+    mutationFn: LikeService.likeSnippet,
     onSuccess: (data) => {
       toast.success(data?.msg);
       const newLiked = Boolean(data?.liked);
       setLiked(newLiked);
+
+      queryClient.invalidateQueries({ queryKey: ['snippetsLiked'] });
 
       // Establezco el nuevo valor de liked en la cache sin hacer un nuevo fetching
       queryClient.setQueryData(['like', snippet._id], newLiked);
@@ -63,8 +65,6 @@ export default function SnippetLike({ snippet }: SnippetLikeProps) {
     }
     mutate({ snippetId: snippet._id });
   };
-
-  console.log(liked);
 
   return (
     <div className="absolute top-3 right-20 z-50">

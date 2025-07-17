@@ -21,6 +21,8 @@ import HomePageView from './views/landingPage/HomePageView';
 import ContactView from './views/landingPage/ContactView';
 import TermsView from './views/landingPage/TermsView';
 import PrivacyView from './views/landingPage/PrivacyView';
+import FavoriteSnippetSidebar from './layouts/FavoriteSnippetSidebar';
+import FavoriteSnippetView from './views/snippets/FavoriteSnippetView';
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +38,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <SnippetTutorialView />,
+                element: <SnippetTutorialView type="snippet" />,
               },
               {
                 path: '/snippet/user/:userId/:snippetId',
@@ -45,16 +47,30 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            path: '/snippet/favorite',
+            element: <FavoriteSnippetSidebar />,
+            children: [
+              {
+                index: true,
+                element: <SnippetTutorialView type="favoriteTutorial" />,
+              },
+              {
+                path: '/snippet/favorite/:snippetId',
+                element: <FavoriteSnippetView />,
+              },
+            ],
+          },
+          {
             //* Guest User
-            path: 'guest',
+            path: '/snippet/guest',
             element: <SidebarLayout isGuest={true} />,
             children: [
               {
                 index: true,
-                element: <SnippetTutorialView />,
+                element: <SnippetTutorialView type="snippet" />,
               },
               {
-                path: ':snippetId',
+                path: '/snippet/guest/:snippetId',
                 element: <GuestSnippetView isGuest={true} />,
               },
             ],

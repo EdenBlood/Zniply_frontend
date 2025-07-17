@@ -61,6 +61,14 @@ export default function SnippetHeaderAuth() {
           </MenuItem>
           <MenuItem>
             <button
+              className="font-semibold text-md py-2 text-center text-slate-50 hover:text-black bg-transparent hover:bg-slate-50 transition-colors duration-300 cursor-pointer"
+              onClick={() => navigate(`/snippet/favorite`)}
+            >
+              Mis favoritos
+            </button>
+          </MenuItem>
+          <MenuItem>
+            <button
               className="font-semibold text-md py-2 text-center text-indigo-400 hover:text-indigo-200 bg-transparent hover:bg-indigo-700 transition-colors duration-300 cursor-pointer"
               disabled={isPending}
               onClick={() => navigate(`/create-snippet`)}
