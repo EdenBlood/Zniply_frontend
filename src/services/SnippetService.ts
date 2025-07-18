@@ -8,7 +8,7 @@ import {
   snippetResponseSchema,
   type User,
   snippetsAnotherUserSchema,
-  searchSnippetResponseSchema,
+  searchSnippetsResponseSchema,
 } from '@/types/index';
 
 export type Props = {
@@ -107,7 +107,7 @@ export default {
     try {
       const { data } = await api.get(url);
 
-      const response = searchSnippetResponseSchema.safeParse(data);
+      const response = searchSnippetsResponseSchema.safeParse(data);
       if (response.success) return response.data;
     } catch (error) {
       if (isAxiosError(error) && error.response) {

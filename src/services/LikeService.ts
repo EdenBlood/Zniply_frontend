@@ -48,7 +48,6 @@ export default {
       if (response.success) return response.data.snippet;
     } catch (error) {
       if (isAxiosError(error) && error.response) {
-        console.log(error);
         throw new Error(error.response.data.error);
       }
     }

@@ -14,14 +14,14 @@ export default function SnippetHeaderAuth() {
     return (
       <>
         <button
-          className="font-semibold text-lg py-1 text-white bg-container/80 hover:bg-container px-3 rounded-lg hover:text-violet-300 hover:shadow-lg transition-colors duration-300 disabled:text-gray-500 disabled:hover:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
+          className="block w-max font-semibold text-lg py-1 text-white bg-container/80 hover:bg-container px-3 rounded-lg hover:text-violet-300 hover:shadow-lg transition-colors duration-300 disabled:text-gray-500 disabled:hover:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
           disabled={isPending}
           onClick={() => navigate('/auth/create-account')}
         >
           Registrarse
         </button>
         <button
-          className="font-semibold text-lg py-1 text-white bg-container/80 hover:bg-container px-3 rounded-lg hover:text-violet-300 hover:shadow-lg transition-colors duration-300 disabled:text-gray-500 disabled:hover:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
+          className="block w-max font-semibold text-lg py-1 text-white bg-container/80 hover:bg-container px-3 rounded-lg hover:text-violet-300 hover:shadow-lg transition-colors duration-300 disabled:text-gray-500 disabled:hover:text-gray-500 disabled:cursor-not-allowed cursor-pointer"
           disabled={isPending}
           onClick={() => navigate('/auth/login')}
         >
@@ -61,7 +61,7 @@ export default function SnippetHeaderAuth() {
           </MenuItem>
           <MenuItem>
             <button
-              className="font-semibold text-md py-2 text-center text-slate-50 hover:text-black bg-transparent hover:bg-slate-50 transition-colors duration-300 cursor-pointer"
+              className="font-semibold text-md py-2 text-center text-yellow-200 hover:text-black bg-transparent hover:bg-accent-yellow transition-colors duration-300 cursor-pointer"
               onClick={() => navigate(`/snippet/favorite`)}
             >
               Mis favoritos

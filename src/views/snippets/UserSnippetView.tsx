@@ -10,6 +10,7 @@ import DeleteSnippetModal from '@/components/Snippet/DeleteSnippetModal';
 import Loader from '@/components/Loader';
 import Seo from '@/extensions/Seo';
 import SnippetLike from '@/components/Snippet/SnippetLike';
+import SnippetDate from '@/components/Snippet/SnippetDate';
 
 export default function UserSnippetView() {
   const params = useParams();
@@ -67,6 +68,8 @@ export default function UserSnippetView() {
           <EditorReadonly content={snippet.code} />
 
           <SnippetLike snippet={snippet} />
+
+          <SnippetDate snippet={snippet} />
 
           {isOwnerSnippet && <SnippetActions snippetId={snippet._id} isPending={isPending} />}
         </article>

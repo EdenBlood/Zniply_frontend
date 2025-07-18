@@ -13,6 +13,8 @@ export const snippetSchemaDraft = z.object({
   user: z.string(),
   language: z.string(),
   likeCount: z.number(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export const snippetsSchema = z.object({
@@ -28,25 +30,8 @@ export const snippetResponseSchema = z.object({
   snippet: snippetSchemaDraft,
 });
 
-export const snippetLikeSchema = z.object({
-  liked: z.boolean(),
-});
-
-export const snippetLikeResponseSchema = z.object({
-  msg: z.string(),
-  liked: z.boolean(),
-});
-
-export const snippetsLikedSchema = z.object({
-  snippet: z.array(snippetSchemaDraft),
-});
-
 export type Snippet = z.infer<typeof snippetSchemaDraft>;
 export type SnippetData = Pick<Snippet, 'title' | 'description' | 'code' | 'language'>;
-
-//* Search */
-
-export const searchSnippetResponseSchema = z.array(snippetSchemaDraft);
 
 //* TipTap */
 
@@ -160,3 +145,39 @@ export const contactSchema = z.object({
 
 export type Contact = z.infer<typeof contactSchema>;
 export type ContactFormData = Pick<Contact, 'asunto' | 'name' | 'email' | 'message'>;
+
+//* Like */
+export const snippetLikeSchema = z.object({
+  liked: z.boolean(),
+});
+
+export const snippetLikeResponseSchema = z.object({
+  msg: z.string(),
+  liked: z.boolean(),
+});
+
+export const snippetsLikedSchema = z.object({
+  snippet: z.array(snippetSchemaDraft),
+});
+
+//* Search */
+
+export const searchSnippetsResponseSchema = z.array(
+  snippetSchemaDraft.extend({
+    user: userSchema.pick({
+      _id: true,
+      name: true,
+      email: true,
+    }),
+  }),
+);
+
+export const searchSnippetSchema = snippetSchemaDraft.extend({
+  user: userSchema.pick({
+    _id: true,
+    name: true,
+    email: true,
+  }),
+});
+
+export type SearchSnippet = z.infer<typeof searchSnippetSchema>;

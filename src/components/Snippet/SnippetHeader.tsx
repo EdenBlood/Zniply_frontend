@@ -29,21 +29,21 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
 
   return (
     <header className="w-6xl shadow-md mx-auto mt-2 bg-navbar rounded-2xl z-20">
-      <nav className="flex justify-between px-5 items-center py-2">
+      <nav className="flex justify-between gap-6 px-5 items-center py-2">
         <div className="flex items-center">
           <Link
             className="mr-7 group"
             to={!isGuest ? `/snippet/user/${user?._id}` : '/snippet/guest'}
           >
-            <span className="transform p-0 duration-500 group-hover:px-1">&lt;</span>
-            <h2 className="inline-block text-2xl text-black font-bold  drop-shadow-sm hover:drop-shadow-lg transform duration-300 group-hover:tracking-wider">
+            <h1 className="block text-2xl text-black font-bold  drop-shadow-sm hover:drop-shadow-lg transform duration-500 group-hover:tracking-wider">
+              <span className="transform p-0 duration-500 group-hover:px-1 font-normal">&lt;</span>
               Zniply
-            </h2>
-            <span className="transform p-0 duration-500 group-hover:px-1">&gt;</span>
+              <span className="transform p-0 duration-500 group-hover:px-1 font-normal">&gt;</span>
+            </h1>
           </Link>
 
           <Link
-            className="font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:text-accent transition-colors duration-300"
+            className="block w-max font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:text-accent transition-colors duration-300"
             to={
               !isGuest
                 ? '/create-snippet'
@@ -56,9 +56,7 @@ export default function SnippetHeader({ isGuest }: SnippetHeaderProps) {
           </Link>
         </div>
 
-        <div className="w-88 flex items-center">
-          <SearchInput />
-        </div>
+        <SearchInput />
 
         <div className="flex items-center gap-2">
           <SnippetHeaderAuth />

@@ -13,11 +13,14 @@ type SnippetLikeProps = {
 export default function SnippetLike({ snippet }: SnippetLikeProps) {
   const queryClient = useQueryClient();
 
+  const { data: user } = useAuthContext();
+
   const { data: getLiked, isLoading } = useQuery({
     queryFn: () => LikeService.getSnippetLiked({ snippetId: snippet._id }),
     queryKey: ['like', snippet._id],
     retry: false,
     refetchOnWindowFocus: false,
+    enabled: !!user,
   });
 
   const [liked, setLiked] = useState<boolean>(false);
@@ -55,8 +58,6 @@ export default function SnippetLike({ snippet }: SnippetLikeProps) {
       toast.error(message);
     },
   });
-
-  const { data: user } = useAuthContext();
 
   const handleLike = () => {
     if (!user) {
