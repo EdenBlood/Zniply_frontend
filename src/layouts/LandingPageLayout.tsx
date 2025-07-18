@@ -2,7 +2,7 @@ import Footer from '@/components/HomePage/Footer';
 import Loader from '@/components/Loader';
 import SnippetHeaderAuth from '@/components/Snippet/SnippetHeaderAuth';
 import { useAuthContext } from '@/hooks/useAuthContext';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 export default function LandingPageLayout() {
   const { data: user, isLoading: authLoading } = useAuthContext();
@@ -25,11 +25,47 @@ export default function LandingPageLayout() {
               </Link>
 
               <Link
-                className="font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:bg-slate-50 hover:text-accent transition-colors duration-300"
+                className="font-semibold rounded-lg text-lg py-1.5 px-3 text-container/80 bg-transparent hover:text-accent transition-colors duration-300"
                 to={isLogged ? `/snippet/user/${user?._id}` : '/snippet/guest'}
               >
                 {isLogged ? 'Gestiona tus snippets' : 'Crea snippets como invitado'}
               </Link>
+              <NavLink
+                className={({ isActive }) =>
+                  `font-semibold rounded-lg text-lg py-1.5 px-2 bg-transparent transition-colors duration-300 ${
+                    isActive
+                      ? 'text-accent hover:text-accent drop-shadow-lg'
+                      : 'text-container/80 hover:text-accent '
+                  }`
+                }
+                to={'/terms'}
+              >
+                Términos y Condiciones
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `font-semibold rounded-lg text-lg py-1.5 px-2 bg-transparent transition-colors duration-300 ${
+                    isActive
+                      ? 'text-accent hover:text-accent drop-shadow-lg'
+                      : 'text-container/80 hover:text-accent '
+                  }`
+                }
+                to={'/privacy'}
+              >
+                Privacidad
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `font-semibold rounded-lg text-lg py-1.5 px-2 bg-transparent transition-colors duration-300 ${
+                    isActive
+                      ? 'text-accent hover:text-accent drop-shadow-lg'
+                      : 'text-container/80 hover:text-accent '
+                  }`
+                }
+                to={'/contact'}
+              >
+                Contacto
+              </NavLink>
             </div>
 
             <div className="flex items-center gap-2">

@@ -91,7 +91,7 @@ export default function SearchInput() {
             hidden={!open}
             anchor="bottom"
             className={
-              'empty:invisible z-20 bg-white placeholder:text-gray-300 rounded-lg w-max border-black border overflow-y-auto overflow-hidden outline-none focus:outline-none'
+              'empty:invisible z-20 bg-white placeholder:text-gray-300 rounded-lg w-max border-black border overflow-y-auto overflow-hidden outline-none focus:outline-none mt-1'
             }
           >
             {results.length > 0 ? (
@@ -106,22 +106,24 @@ export default function SearchInput() {
                 >
                   <div className="flex flex-col overflow-hidden gap-1">
                     <p className="text-ellipsis line-clamp-1 font-bold">{snippet.title}</p>
-                    <p className="text-xs text-gray-200 group-data-selected:text-black text-ellipsis line-clamp-2">
+                    <p className="text-xs text-gray-200 group-hover:text-gray-100 group-data-selected:text-black text-ellipsis line-clamp-2">
                       {snippet.description}
                     </p>
                   </div>
-                  <p className="absolute px-4 bottom-1 left-0 text-xs text-gray-300 group-data-selected:text-black">
-                    de{' '}
-                    <span className="font-semibold text-accent-yellow group-data-selected:text-accent">
-                      {snippet.user.name}
-                    </span>
-                  </p>
-                  <p className="absolute px-4 bottom-1 right-0 text-xs text-gray-300 group-data-selected:text-black">
-                    lenguaje{' '}
-                    <span className="font-semibold text-accent-yellow group-data-selected:text-accent">
-                      {snippet.language}
-                    </span>
-                  </p>
+                  <div className="flex flex-start gap-4 absolute bottom-1 left-4">
+                    <p className="text-xs text-gray-300 group-data-selected:text-black">
+                      de{' '}
+                      <span className="font-semibold text-accent-yellow group-data-selected:text-accent">
+                        {snippet.user.name}
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-300 group-data-selected:text-black">
+                      lenguaje{' '}
+                      <span className="font-semibold text-accent-yellow group-data-selected:text-accent">
+                        {snippet.language}
+                      </span>
+                    </p>
+                  </div>
                 </ComboboxOption>
               ))
             ) : isLoading ? (

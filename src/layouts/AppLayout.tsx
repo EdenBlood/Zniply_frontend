@@ -2,7 +2,7 @@ import Loader from '@/components/Loader';
 import SnippetHeader from '@/components/Snippet/SnippetHeader';
 import { useAuthContext } from '@/hooks/useAuthContext';
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import type { Snippet } from '../types';
 import AskModal from '@/components/AskModal';
 
@@ -47,8 +47,14 @@ export default function AppLayout() {
         <footer className="text-white pb-0.5">
           <div className="text-center text-sm">
             <p>
-              © {new Date().getFullYear()} Zniply. Todos los derechos reservados.{' '}
-              <span className="text-xs">Version: 1.0.0</span>
+              © {new Date().getFullYear()}{' '}
+              <Link
+                to={'/'}
+                className="text-accent-yellow/90 hover:text-accent-yellow transition-colors duration-300"
+              >
+                Zniply
+              </Link>
+              . Todos los derechos reservados. <span className="text-xs">Version: 1.0.0</span>
             </p>
           </div>
         </footer>

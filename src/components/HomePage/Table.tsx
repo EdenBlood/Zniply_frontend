@@ -12,13 +12,13 @@ export default function Table() {
           <table className="w-full text-center">
             <thead>
               <tr>
-                <th className="text-slate-50 py-4 font-bold">Característica</th>
-                <th className="text-slate-50 py-4 font-bold">Invitado</th>
-                <th className="text-slate-50 py-4 font-bold">Registrado</th>
+                <th className="text-slate-50 py-4 font-bold text-2xl">Característica</th>
+                <th className="text-slate-50 py-4 font-bold text-2xl">Invitado</th>
+                <th className="text-slate-50 py-4 font-bold text-2xl">Registrado</th>
               </tr>
             </thead>
-            <tbody>
-              <tr className="border-b border-slate-700">
+            <tbody className="">
+              <tr className="border-b border-slate-700 last:border-b-0">
                 <td className="text-slate-400 py-3">Crear Snippets</td>
                 <td>
                   <div className="flex justify-center gap-2">
@@ -37,7 +37,7 @@ export default function Table() {
                   </div>
                 </td>
               </tr>
-              <tr className="border-b border-slate-700">
+              <tr className="border-b border-slate-700 last:border-b-0">
                 <td className="text-slate-400 py-3">Editar Snippets</td>
                 <td className="text-center">
                   <div className="flex justify-center gap-2">
@@ -54,7 +54,7 @@ export default function Table() {
                   </div>
                 </td>
               </tr>
-              <tr className="border-b border-slate-700">
+              <tr className="border-b border-slate-700 last:border-b-0">
                 <td className="text-slate-400 py-3">Organizar y Buscar Snippets</td>
                 <td className="text-center">
                   <div className="flex justify-center gap-2">
@@ -71,7 +71,7 @@ export default function Table() {
                   </div>
                 </td>
               </tr>
-              <tr className="border-b border-slate-700">
+              <tr className="border-b border-slate-700 last:border-b-0">
                 <td className="text-slate-400 py-3">Seguridad y Backup</td>
                 <td className="text-center">
                   <div className="flex justify-center gap-2">
@@ -88,8 +88,42 @@ export default function Table() {
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr className="border-b border-slate-700 last:border-b-0">
                 <td className="text-slate-400 py-3">Compartir Snippets</td>
+                <td className="text-center">
+                  <div className="flex justify-center gap-2">
+                    <div className="size-6 bg-red-500 rounded-full flex items-center justify-center">
+                      <XMarkIcon className="text-white size-5" />
+                    </div>
+                  </div>
+                </td>
+                <td className="text-center">
+                  <div className="flex justify-center gap-2">
+                    <div className="size-6 bg-green-500 rounded-full flex items-center justify-center">
+                      <CheckIcon className="text-white size-5" />
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr className="border-b border-slate-700 last:border-b-0">
+                <td className="text-slate-400 py-3">Agregar a favoritos</td>
+                <td className="text-center">
+                  <div className="flex justify-center gap-2">
+                    <div className="size-6 bg-red-500 rounded-full flex items-center justify-center">
+                      <XMarkIcon className="text-white size-5" />
+                    </div>
+                  </div>
+                </td>
+                <td className="text-center">
+                  <div className="flex justify-center gap-2">
+                    <div className="size-6 bg-green-500 rounded-full flex items-center justify-center">
+                      <CheckIcon className="text-white size-5" />
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr className="border-b border-slate-700 last:border-b-0">
+                <td className="text-slate-400 py-3">Ver tus snippets favoritos</td>
                 <td className="text-center">
                   <div className="flex justify-center gap-2">
                     <div className="size-6 bg-red-500 rounded-full flex items-center justify-center">
