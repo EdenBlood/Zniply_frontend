@@ -23,6 +23,7 @@ import TermsView from './views/landingPage/TermsView';
 import PrivacyView from './views/landingPage/PrivacyView';
 import FavoriteSnippetSidebar from './layouts/FavoriteSnippetSidebar';
 import FavoriteSnippetView from './views/snippets/FavoriteSnippetView';
+import OAuthCallbackView from './views/auth/OAuthCallbackView';
 
 export const router = createBrowserRouter([
   {
@@ -148,6 +149,10 @@ export const router = createBrowserRouter([
             element: <PrivacyView />,
           },
         ],
+      },
+      {
+        path: '/oauth-callback',
+        element: <OAuthCallbackView />,
       },
     ],
   },

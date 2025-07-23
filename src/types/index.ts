@@ -76,6 +76,7 @@ export const authSchema = z.object({
   password: z.string(),
   password_repeat: z.string(),
   token: z.string(),
+  provider: z.string(),
   snippets: z.array(
     snippetSchemaDraft.pick({
       _id: true,
