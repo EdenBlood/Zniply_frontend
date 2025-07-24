@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import InputSubmit from '@/components/Auth/InputSubmit';
 import AuthLinks from '@/components/Auth/AuthLinks';
 import Seo from '@/extensions/Seo';
+import OAuthButtons from '@/components/Auth/OAuthButtons';
 
 export default function CreateAccountView() {
   const initialValues: CreateAccountFormData = {
@@ -96,7 +97,7 @@ export default function CreateAccountView() {
           <label
             htmlFor="email"
             className="uppercase text-xs font-semibold tracking-wide text-secondary
-          "
+            "
           >
             Email
           </label>
@@ -119,7 +120,7 @@ export default function CreateAccountView() {
           <label
             htmlFor="password"
             className="uppercase text-xs font-semibold tracking-wide text-secondary
-          "
+            "
           >
             Contraseña
           </label>
@@ -143,7 +144,7 @@ export default function CreateAccountView() {
           <label
             htmlFor="password_repeat"
             className="uppercase text-xs font-semibold tracking-wide text-secondary
-          "
+            "
           >
             Repetir Contraseña
           </label>
@@ -169,6 +170,8 @@ export default function CreateAccountView() {
 
         <InputSubmit isPending={isPending} values={['Crear Cuenta', 'Creando Cuenta...']} />
       </form>
+
+      <OAuthButtons text={'Regístrate'} />
 
       <AuthLinks links={['login', 'forgotPassword', 'resendCode']} />
     </>

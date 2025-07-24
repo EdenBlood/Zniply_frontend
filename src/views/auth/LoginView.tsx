@@ -128,7 +128,7 @@ export default function LoginView() {
         <InputSubmit isPending={isPending} values={['Iniciar Sesión', 'Iniciando Sesión...']} />
       </form>
 
-      <OAuthButtons />
+      <OAuthButtons text={'Iniciar Sesión'} />
 
       <AuthLinks links={['register', 'forgotPassword']} />
     </>

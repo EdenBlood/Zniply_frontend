@@ -6,7 +6,7 @@ import Global from './Global';
 import SnippetTutorialView from '@/views/snippets/SnippetTutorialView';
 import EditSnippetView from './views/snippets/EditSnippetView';
 import AuthLayout from './layouts/AuthLayout';
-import CreateAccountView from './views/auth/CreateAccountView.1';
+import CreateAccountView from './views/auth/CreateAccountView';
 import LoginView from './views/auth/LoginView';
 import ForgotPasswordView from './views/auth/ForgotPasswordView';
 import ResendCodeView from './views/auth/ResendCodeView';
